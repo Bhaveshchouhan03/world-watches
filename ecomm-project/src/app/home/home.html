@@ -1,0 +1,83 @@
+<section class="home-page">
+  <div class="hero-panel">
+    <div class="hero-copy">
+      <span class="eyebrow">Smart Storefront</span>
+      <h1>Fresh collections, cleaner browsing and a shopping UI that feels premium.</h1>
+      <p>
+        Explore featured picks, compare products faster and move from discovery to checkout
+        with a sharper, more professional experience.
+      </p>
+
+      <div class="hero-stats">
+        <article *ngFor="let stat of heroStats">
+          <strong>{{ stat.value }}</strong>
+          <span>{{ stat.label }}</span>
+        </article>
+      </div>
+    </div>
+
+    <div class="featured-shell" *ngIf="featuredProduct as product">
+      <button type="button" class="nav-arrow left" (click)="previousFeatured()" aria-label="Previous product">
+        &#8249;
+      </button>
+
+      <article class="featured-card">
+        <a [routerLink]="['/details', product.id]" class="featured-image-link">
+          <img [src]="product.image" [alt]="product.name" />
+        </a>
+
+        <div class="featured-overlay">
+          <span class="featured-category">{{ product.category }}</span>
+          <h2>{{ product.name }}</h2>
+          <p>{{ product.description }}</p>
+          <strong>From {{ product.price | currency:'INR':'symbol':'1.0-0' }}</strong>
+        </div>
+      </article>
+
+      <button type="button" class="nav-arrow right" (click)="nextFeatured()" aria-label="Next product">
+        &#8250;
+      </button>
+
+      <div class="slider-dots" *ngIf="popularProducts?.length">
+        <button
+          type="button"
+          *ngFor="let item of popularProducts; let i = index"
+          [class.active]="i === featuredIndex"
+          (click)="selectFeatured(i)"
+          [attr.aria-label]="'View ' + item.name"
+        ></button>
+      </div>
+    </div>
+  </div>
+
+  <section class="product-section" *ngIf="displayedProducts.length">
+    <div class="section-heading">
+      <div>
+        <span>Trending Products</span>
+        <h3>Browse what shoppers are exploring right now</h3>
+      </div>
+      <a routerLink="/search/trending">View all</a>
+    </div>
+
+    <div class="product-grid">
+      <article class="product-card" *ngFor="let item of displayedProducts">
+        <a [routerLink]="['/details', item.id]" class="product-image-link">
+          <img [src]="item.image" [alt]="item.name" />
+        </a>
+
+        <div class="product-content">
+          <div class="product-meta">
+            <span>{{ item.category }}</span>
+            <strong>{{ item.price | currency:'INR':'symbol':'1.0-0' }}</strong>
+          </div>
+          <h4>{{ item.name }}</h4>
+          <p>{{ item.description }}</p>
+          <div class="product-footer">
+            <small>{{ item.color }}</small>
+            <a [routerLink]="['/details', item.id]">View details</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+</section>

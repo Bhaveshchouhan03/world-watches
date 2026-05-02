@@ -1,0 +1,59 @@
+<section class="cart-page" *ngIf="cartData.length">
+  <div class="cart-heading">
+    <span>Bag Overview</span>
+    <h1>Cart Summary</h1>
+  </div>
+
+  <div class="cart-layout">
+    <article class="cart-items-card">
+      <div class="cart-item" *ngFor="let cart of cartData">
+        <div class="cart-item-media">
+          <img [src]="cart.image" [alt]="cart.name" />
+        </div>
+
+        <div class="cart-item-copy">
+          <h2>{{ cart.name }}</h2>
+          <p>Quantity: {{ cart.quantity || 1 }}</p>
+        </div>
+
+        <div class="cart-item-meta">
+          <strong>{{ (cart.price * (cart.quantity || 1)) | currency:'INR':'symbol':'1.0-0' }}</strong>
+          <button type="button" class="remove-button" (click)="removeToCart(cart.id)">Remove</button>
+        </div>
+      </div>
+    </article>
+
+    <aside class="summary-card">
+      <h3>Summary</h3>
+
+      <div class="summary-rows">
+        <div class="summary-row">
+          <span>Amount</span>
+          <strong>{{ priceSummary.price | currency:'INR':'symbol':'1.0-0' }}</strong>
+        </div>
+
+        <div class="summary-row">
+          <span>Tax</span>
+          <strong>{{ priceSummary.tax | currency:'INR':'symbol':'1.1-1' }}</strong>
+        </div>
+
+        <div class="summary-row">
+          <span>Delivery</span>
+          <strong>{{ priceSummary.delivery | currency:'INR':'symbol':'1.0-0' }}</strong>
+        </div>
+
+        <div class="summary-row">
+          <span>Discount</span>
+          <strong>{{ priceSummary.discount | currency:'INR':'symbol':'1.1-1' }}</strong>
+        </div>
+
+        <div class="summary-row total-row">
+          <span>Total</span>
+          <strong>{{ priceSummary.total | currency:'INR':'symbol':'1.0-0' }}</strong>
+        </div>
+      </div>
+
+      <button type="button" class="checkout-button" (click)="checkout()">Checkout</button>
+    </aside>
+  </div>
+</section>

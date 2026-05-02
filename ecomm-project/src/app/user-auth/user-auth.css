@@ -1,0 +1,42 @@
+.form-input{
+    height: 35px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    border: 1px solid black;
+    padding-left: 15px;
+    color: black;  
+}
+.form-button{
+    height: 35px;
+    border-radius: 20px;
+    border: 1px solid black;
+    color: black;
+    background-color: #9edcf2;
+    border: none;
+    cursor: pointer;
+}
+.common-form{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: auto;
+}
+.user-auth h1{
+    color: #800020;
+    margin-top: 50px;
+    margin-bottom: 80px;
+    text-align: center;
+}
+.user-auth{
+    margin-bottom: 100px;
+}
+.user-auth a{
+    color: #800020;
+    cursor: pointer;
+}
+button:disabled{
+    cursor: not-allowed;
+}
+.error-p{
+    color: red;
+}

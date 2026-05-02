@@ -1,0 +1,39 @@
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Aptos, "Segoe UI", "Trebuchet MS", sans-serif;
+  color: #17304d;
+  background:
+    radial-gradient(circle at top left, rgba(146, 182, 225, 0.35), transparent 30%),
+    radial-gradient(circle at top right, rgba(255, 194, 126, 0.2), transparent 28%),
+    linear-gradient(180deg, #edf4fc 0%, #f9fbff 35%, #eef3f9 100%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+.invalid-input {
+  color: #d63c2d;
+  font-size: 12px;
+  margin-top: -20px;
+}
+
+.max-width {
+  width: 100%;
+}
