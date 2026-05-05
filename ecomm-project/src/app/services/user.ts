@@ -15,7 +15,11 @@ export class User {
    this.http.post('http://localhost:5000/users',user,{observe:'response'})
    .subscribe((result)=>{
     if(result){
-      localStorage.setItem('user',JSON.stringify(result.body));
+      const createdUser = {
+        ...user,
+        id: (result.body as any)?.userId,
+      };
+      localStorage.setItem('user',JSON.stringify(createdUser));
       this.router.navigate(['/']);
     }
   })

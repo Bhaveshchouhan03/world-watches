@@ -51,7 +51,8 @@ export class UserAuth {
     // console.warn("called");
     let data = localStorage.getItem('localCart');
      let user = localStorage.getItem('user');
-      let userId= user && JSON.parse(user).id;
+      let userData = user && JSON.parse(user);
+      let userId= userData?.id ?? userData?.userId;
     if(data){
       let cartDataList:product[]=JSON.parse(data);
      

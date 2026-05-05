@@ -1,4 +1,6 @@
 .header-card {
+  position: relative;
+  z-index: 20;
   display: flex;
   align-items: center;
   gap: 14px;
@@ -41,6 +43,13 @@
   stroke-width: 3.2;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+.brand-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 20px;
 }
 
 .brand-mark .brand-center {

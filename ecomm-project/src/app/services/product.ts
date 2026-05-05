@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { cart, order, product } from '../data-type';
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter } from '@angular/core'; 
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 
 
 @Injectable({
@@ -12,6 +12,17 @@ export class ProductService {
   // cartData = new EventEmitter<product[] |[]>();
   cartData = new BehaviorSubject<product[]>([]);
   constructor(private http:HttpClient){}
+
+  getCurrentUserId(): number | undefined {
+    const userStore = localStorage.getItem('user');
+
+    if (!userStore || userStore === 'undefined') {
+      return undefined;
+    }
+
+    const userData = JSON.parse(userStore);
+    return userData?.id ?? userData?.userId;
+  }
 
 
   addProduct(data:product){
@@ -92,9 +103,8 @@ export class ProductService {
   }
 
   currentCart(){
-    let userStore = localStorage.getItem('user');
-    let userData = userStore && JSON.parse(userStore);
-    return this.http.get<cart[]>('http://localhost:5000/cart?userId='+userData.id);
+    const userId = this.getCurrentUserId();
+    return this.http.get<cart[]>('http://localhost:5000/cart?userId='+userId);
   }
 
   orderNow(data:order){
@@ -105,9 +115,14 @@ export class ProductService {
   // return this.http.get<order[]>("http://localhost:5000/orders");
   // }
   orderList() {
-  let user = JSON.parse(localStorage.getItem('user') || '{}');
-  return this.http.get<order[]>(`http://localhost:5000/orders?userId=${user.id}`);
-}
+    const userId = this.getCurrentUserId();
+
+    if (!userId) {
+      return of([] as order[]);
+    }
+
+    return this.http.get<order[]>(`http://localhost:5000/orders?userId=${userId}`);
+  }
 
   deleteCartItems(cartId:number){
      return this.http.delete('http://localhost:5000/cart/'+cartId).subscribe((reslut)=>{

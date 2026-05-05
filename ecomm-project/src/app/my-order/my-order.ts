@@ -1,8 +1,7 @@
 import { Component, NgModule } from '@angular/core';
 import { ProductService } from '../services/product';
 import { order } from '../data-type';
-import { CommonModule, NgFor } from '@angular/common';
-import { NgForm, NgModel } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
@@ -15,7 +14,6 @@ import { NgForm, NgModel } from '@angular/forms';
 export class MyOrder {
 
   orderData: order[] = [];
-  // orderData:order[]|undefined
   constructor(private product:ProductService){}
 
   ngOnInit():void{
@@ -23,7 +21,6 @@ export class MyOrder {
   }
 
   cencelOrder(orderId:number|undefined){
-    console.warn("cencelOrder");
     orderId && this.product.cencelOrder(orderId).subscribe((result)=>{
       if(result){
         this.getOrderList();

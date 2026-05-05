@@ -9,7 +9,8 @@
 
 .app-content {
   flex: 1;
-  /* z-index: -1; */
+  position: relative;
+  z-index: 0;
 }
 
 @media (max-width: 768px) {

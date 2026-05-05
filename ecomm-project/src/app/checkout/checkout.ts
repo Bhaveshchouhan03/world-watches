@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, NgModule } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
-import { warn } from 'console';
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ProductService } from '../services/product';
 import { cart, order } from '../data-type';
 import { Router } from '@angular/router';
@@ -34,28 +33,28 @@ export class Checkout {
   }
 
   orderNow(data:{email:string,address:string,contact:string}){
-    let user = localStorage.getItem('user');
-    let userId = user && JSON.parse(user);
-    if(this.totalPrice){
-      let orderData:order={
+    const user = localStorage.getItem('user');
+    const userData = user ? JSON.parse(user) : null;
+    const userId = userData?.id ?? userData?.userId;
+
+    if(this.totalPrice && userId){
+      const orderData:order={
         ...data,
         totalPrice: this.totalPrice,
         userId,
         id:undefined
       }
-      this.cartData?.forEach((item)=>{
-       setTimeout(() => {
-         item.id && this.product.deleteCartItems(item.id)
-       }, 500);
-      })
-      this.product.orderNow(orderData).subscribe((result)=>{
-        if(result){
-          this.orderMsg="order has been placed";
-          this.router.navigate(['/my-orders'])
-          // setTimeout(() => {
-          //   this.orderMsg=undefined;
-          // }, 4000);
-          alert('Order placed')
+      this.product.orderNow(orderData).subscribe({
+        next: (result)=>{
+          if(result){
+            this.product.cartData.next([]);
+            this.orderMsg="order has been placed";
+            this.router.navigate(['/my-orders']);
+            alert('Order placed');
+          }
+        },
+        error: ()=>{
+          this.orderMsg="Unable to place order. Please try again.";
         }
       })
     }

@@ -80,4 +80,10 @@
       </article>
     </div>
   </section>
+  <div class="header-card">
+    BRAND WATCHES
+    <div class="brand-buttons">
+      <button *ngFor="let brand of brands" (click)="setFilter(brand)">{{brand}} Watches</button>
+    </div>
+  </div>
 </section>

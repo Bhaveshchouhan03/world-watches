@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { ProductService } from '../services/product';
 import { product } from '../data-type';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, filter } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -26,29 +26,13 @@ export class Header {
   ) {}
 
   ngOnInit(): void {
-    this.route.events.subscribe((val: any) => {
-      if (val.url) {
-        if (localStorage.getItem('seller') && val.url.includes('seller')) {
-          const sellerStore = localStorage.getItem('seller');
-          const sellerData = sellerStore && JSON.parse(sellerStore);
-          this.sellerName = sellerData.name;
-          this.menuType = 'seller';
-        } else if (localStorage.getItem('user')) {
-          const userStore = localStorage.getItem('user');
-          if (userStore && userStore !== 'undefined') {
-            const userData = JSON.parse(userStore);
-            this.userName = userData?.name || '';
-            this.menuType = 'user';
-            this.product.getCartList(userData.id);
-          } else {
-            localStorage.removeItem('user');
-            this.menuType = 'default';
-          }
-        } else {
-          this.menuType = 'default';
-        }
-      }
-    });
+    this.syncMenuState(this.route.url);
+
+    this.route.events
+      .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
+      .subscribe((event) => {
+        this.syncMenuState(event.urlAfterRedirects);
+      });
 
     const cartData = localStorage.getItem('localCart');
     if (cartData) {
@@ -115,10 +99,12 @@ export class Header {
   }
 
   redirectToDetails(id: number) {
+    this.searchResult = [];
     this.route.navigate(['/details/' + id]);
   }
 
   submitSearch(val: string) {
+    this.searchResult = [];
     this.route.navigate([`search/${val}`]);
   }
 
@@ -129,5 +115,34 @@ export class Header {
     }
 
     this.route.navigate(['/user-auth']);
+  }
+
+  private syncMenuState(url: string) {
+    if (localStorage.getItem('seller') && url.includes('seller')) {
+      const sellerStore = localStorage.getItem('seller');
+      const sellerData = sellerStore && JSON.parse(sellerStore);
+      this.sellerName = sellerData?.name || '';
+      this.menuType = 'seller';
+      return;
+    }
+
+    if (localStorage.getItem('user')) {
+      const userStore = localStorage.getItem('user');
+
+      if (userStore && userStore !== 'undefined') {
+        const userData = JSON.parse(userStore);
+        this.userName = userData?.name || '';
+        this.menuType = 'user';
+        const userId = userData?.id ?? userData?.userId;
+        if (userId) {
+          this.product.getCartList(userId);
+        }
+        return;
+      }
+
+      localStorage.removeItem('user');
+    }
+
+    this.menuType = 'default';
   }
 }
