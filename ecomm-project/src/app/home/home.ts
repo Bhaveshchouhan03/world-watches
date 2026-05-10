@@ -83,8 +83,9 @@ export class Home {
       const name = p.name.toLowerCase();
       if (name.includes('titan')) brandSet.add('Titan');
       if (name.includes('rolex')) brandSet.add('Rolex');
-      // Add more brand detections as needed
+      if (name.includes('g-shock') || name.includes('g shock')) brandSet.add('G-SHOCK');
     });
+    brandSet.add('G-SHOCK'); // Ensure button always shows as requested
     return Array.from(brandSet);
   }
 
@@ -93,6 +94,8 @@ export class Home {
       return this.trendyProducts?.filter(p => p.name.toLowerCase().includes('titan')) || [];
     } else if (this.filter === 'Rolex') {
       return this.trendyProducts?.filter(p => p.name.toLowerCase().includes('rolex')) || [];
+    } else if (this.filter === 'G-SHOCK') {
+      return this.trendyProducts?.filter(p => p.name.toLowerCase().includes('g-shock') || p.name.toLowerCase().includes('g shock')) || [];
     } else {
       return this.trendyProducts?.slice(0, 8) || [];
     }
