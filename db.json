@@ -1,0 +1,153 @@
+{
+  "seller": [
+    {
+      "id": "928f",
+      "name": "Bhavesh chouhan",
+      "email": "Bhavesh@seller.com",
+      "password": "abc@123"
+    },
+    {
+      "id": "62cf",
+      "name": "Sam Tiwari",
+      "email": "Sam@seller.com",
+      "password": "abc@123"
+    },
+    {
+      "id": "c372",
+      "name": "Samm",
+      "password": "abc@123",
+      "Email": "sam@text.com"
+    },
+    {
+      "id": "ca25",
+      "name": "sonu",
+      "password": "abc@123",
+      "Email": "sonu@text.com"
+    },
+    {
+      "id": "e5f4",
+      "name": "Bhavesh Chouhan",
+      "password": "1233",
+      "Email": "chouhanbhavesh860@gmail.com"
+    }
+  ],
+  "products": [
+    {
+      "name": "Hp Laptop",
+      "price": "50999",
+      "category": "laptop",
+      "color": "Natural Silver",
+      "description": "Intel Core i5 12th Gen\nExperience lightning-fast speed\n8 GB | 512 GB\nSmooth gaming and video editing experience\n15.6 Inch | Full HD Display\nClear and detailed visuals.\nIntel Integrated\nEfficient graphics for everyday use\n1.69 kg\nLightweight and easy to carry",
+      "image": "https://ehpworld.com/wp-content/uploads/2021/10/HP14s-Dq2535Tu-left-rearview.jpg",
+      "id": "e58f"
+    },
+    {
+      "name": "Glasses UV Protection",
+      "price": "1500",
+      "category": "Glasses",
+      "color": "Blue",
+      "description": "Size\nThis product is sold as Free Size by the Brand\nIdeal For\nMen & Women\n \n \nPurpose\nEye Protection, Style, Biking\nLens Color and Material\nBlue, Polycarbonate\n \n \nFeatures\nUV Protection, Gradient\nType\nRectangular\n \n \nFrame Material\nMetal\nFrame Color for Refiner\nSilver\n",
+      "image": "https://rukminim1.flixcart.com/image/1536/1536/xif0q/sunglass/h/p/g/this-product-is-sold-as-free-size-by-the-brand-crop-cateye-style-original-imahhz2yztvbgh2q.jpeg?q=90",
+      "id": "a6a2"
+    },
+    {
+      "name": "POLO T-Shirt",
+      "price": "2199",
+      "category": "t-shirt",
+      "color": "Black",
+      "description": "Sleeve\nHalf Sleeve\nFabric\nPure Cotton\n \n \nNeck Type\nPolo Neck\nPattern\nAbstract",
+      "image": "https://rukminim1.flixcart.com/image/1536/1536/xif0q/t-shirt/h/p/8/-original-imaheqksx87fffcg.jpeg?q=90",
+      "id": "a848"
+    },
+    {
+      "name": "Vivo X300",
+      "price": "75000",
+      "category": "mobile",
+      "color": "Summit Red",
+      "description": "12 GB RAM | 256 GB ROM \nDimensity 9500 | Octa Core Processor | 4.21 GHz Clock Speed\n200MP + 50MP + 50MP Rear Camera\n50MP Front Camera\n16.04 cm\n6040 mAh Battery",
+      "image": "https://rukminim2.flixcart.com/image/1536/1536/xif0q/mobile/3/n/j/-original-imahg954vkzthbty.jpeg?q=90",
+      "id": "4212"
+    },
+    {
+      "name": "Lenovo Yoga 7",
+      "price": "155990",
+      "category": "laptop",
+      "color": "Seashell",
+      "description": "Intel Core Ultra 5\nExperience lightning-fast speed\n16 GB | 1 TB\nSmooth gaming and video editing experience\n14 Inch | WUXGA Display\nHigh resolution and wide aspect ratio.\nIntel Integrated\nEfficient graphics for everyday use\n1.38 Kg\nLightweight and easy to carry",
+      "image": "https://rukminim1.flixcart.com/image/1536/1536/xif0q/computer/w/e/s/-original-imahfkh3ruxavrha.jpeg?q=90",
+      "id": "83ff"
+    },
+    {
+      "name": "Sony Tv",
+      "price": "65990",
+      "category": "TV",
+      "color": "Black",
+      "description": "LED 108 cm (43 inch)\nRefresh Rate : 60 Hz\nNumber of Speakers: 2\nSpeaker Output RMS: 20 W\nOperating System : Google TV\nHDMI Ports: 4 | 2 USB Ports\nBuilt in WIFI | With Bluetooth Feature",
+      "image": "https://m.media-amazon.com/images/I/81Vs1ZXn43L._SX522_.jpg",
+      "id": "988c"
+    },
+    {
+      "id": "990c",
+      "name": "Sony Tv",
+      "price": "20000",
+      "category": "TV",
+      "color": "black",
+      "description": "LED 108 cm (43 inch)\nRefresh Rate : 60 Hz\nNumber of Speakers: 2\nSpeaker Output RMS: 20 W\nOperating System : Google TV\nHDMI Ports: 4 | 2 USB Ports\nBuilt in WIFI | With Bluetooth Feature",
+      "image": "https://rukminim2.flixcart.com/image/1536/1536/xif0q/television/n/d/e/-original-imahcsfhfmxa5kwk.jpeg?q=90"
+    },
+    {
+      "name": "REDTAPE Athleisure Shoes ",
+      "price": "1269",
+      "category": "Shoes For Men",
+      "color": "Blue,White",
+      "description": "Outer material\nMesh\nOccasion\nSports\n \n \nType For Sports\nWalking Shoes",
+      "image": "https://rukminim1.flixcart.com/image/1536/1536/xif0q/shoe/f/d/c/-original-imahan4cdcdqdemm.jpeg?q=90",
+      "id": "f43a"
+    }
+  ],
+  "users": [
+    {
+      "id": "bdbc",
+      "name": "Sonu",
+      "email": "Sonu11@gmail.com",
+      "password": "1234"
+    },
+    {
+      "id": "dc93",
+      "name": "Bhavesh Chouhan",
+      "email": "chouhanbhavesh860@gmail.com",
+      "password": "1234"
+    },
+    {
+      "id": "98b9",
+      "name": "Monu",
+      "email": "Monu11@gmail.com",
+      "password": "1234"
+    },
+    {
+      "id": "c417",
+      "name": "Mina",
+      "email": "Mina11@gmail.com",
+      "password": "1234"
+    }
+  ],
+  "cart": [
+    
+  ],
+  "orders": [
+    {
+      "id": "b0d9",
+      "email": "chouhanbhavesh860@gmail.com",
+      "address": "Freeganj Square",
+      "contact": "99999",
+      "totalPrice": 1600,
+      "userId": {
+        "id": "c417",
+        "name": "Mina",
+        "email": "Mina11@gmail.com",
+        "password": "1234"
+      }
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

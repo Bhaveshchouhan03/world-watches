@@ -1,0 +1,51 @@
+<div class="auth-page">
+  <div class="auth-card">
+    <div class="auth-header">
+      <h1>{{ showLogin ? 'Welcome Back' : 'Create Your Account' }}</h1>
+      <p>{{ showLogin ? 'Sign in to continue shopping with us.' : 'Create a new account and start exploring products.' }}</p>
+    </div>
+
+    <div *ngIf="showLogin" class="auth-body">
+      <form class="common-form" #userLogin="ngForm" (ngSubmit)="login(userLogin.value)">
+        <p class="error-p" *ngIf="authError">{{ authError }}</p>
+
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input id="email" type="email" class="form-input" name="email" placeholder="Enter your email" ngModel email #email="ngModel" required>
+          <span class="invalid-input" *ngIf="email.invalid && email.touched">Please enter a valid email</span>
+        </div>
+
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input id="password" type="password" class="form-input" name="password" placeholder="Enter your password" minlength="4" maxlength="8" ngModel #password="ngModel" required>
+          <span class="invalid-input" *ngIf="password.invalid && password.touched">Please enter a valid password</span>
+        </div>
+
+        <button class="form-button" type="submit" [disabled]="userLogin.invalid">Login</button>
+      </form>
+      <p class="toggle-text">New here? <a (click)="openSignUp()">Create an account</a></p>
+    </div>
+
+    <div *ngIf="!showLogin" class="auth-body">
+      <form class="common-form" #userSignUp="ngForm" (ngSubmit)="SignUp(userSignUp.value)">
+        <div class="input-group">
+          <label for="name">Name</label>
+          <input id="name" type="text" class="form-input" name="name" placeholder="Enter your name" ngModel required>
+        </div>
+
+        <div class="input-group">
+          <label for="signup-email">Email</label>
+          <input id="signup-email" type="email" class="form-input" name="email" placeholder="Enter your email" ngModel required>
+        </div>
+
+        <div class="input-group">
+          <label for="signup-password">Password</label>
+          <input id="signup-password" type="password" class="form-input" name="password" placeholder="Create a password" ngModel required>
+        </div>
+
+        <button class="form-button" type="submit">Sign Up</button>
+      </form>
+      <p class="toggle-text">Already have an account? <a (click)="openLogin()">Login instead</a></p>
+    </div>
+  </div>
+</div>

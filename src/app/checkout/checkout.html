@@ -1,0 +1,33 @@
+<section class="checkout-page">
+  <div class="checkout-heading">
+    <span>Final Step</span>
+    <h1>Checkout</h1>
+  </div>
+
+  <div class="checkout-layout">
+    <article class="checkout-form-card">
+      <h2>Add Shipping Address</h2>
+      <p class="message-p" *ngIf="orderMsg">{{ orderMsg }}</p>
+
+      <form #orderData="ngForm" class="checkout-form" (ngSubmit)="orderNow(orderData.value)">
+        <input type="text" class="form-input" name="email" placeholder="Enter User Email" ngModel />
+        <input type="text" class="form-input" name="address" placeholder="Enter User Address" ngModel />
+        <input type="text" class="form-input" name="contact" placeholder="Enter User details" ngModel />
+        <button class="form-button" type="submit">Order Now</button>
+      </form>
+    </article>
+
+    <aside class="checkout-summary-card">
+      <h3>Order Summary</h3>
+      <div class="summary-block">
+        <span>Total Amount</span>
+        <strong>{{ totalPrice || 0 | currency:'INR':'symbol':'1.0-0' }}</strong>
+      </div>
+
+      <div class="summary-block">
+        <span>Payment Method</span>
+        <b>Pay on delivery</b>
+      </div>
+    </aside>
+  </div>
+</section>
