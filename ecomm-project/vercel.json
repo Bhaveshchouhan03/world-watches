@@ -1,9 +1,8 @@
 {
-  "outputDirectory": "dist/ecomm-project/browser",
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/src/index.html"
+      "destination": "/index.html"
     }
   ]
 }
