@@ -14,7 +14,6 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "outputPath": "dist/ecomm-project",
           "builder": "@angular/build:application",
           "options": {
             "browser": "src/main.ts",
@@ -25,24 +24,34 @@
                 "input": "public"
               }
             ],
-            "styles": ["node_modules/bootstrap/dist/css/bootstrap.min.css", "src/styles.css"],
+            "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/styles.css"
+            ],
+            "server": "src/main.server.ts",
+            "outputMode": "server",
             "security": {
               "allowedHosts": []
             },
-            "polyfills": ["@angular/localize/init"]
+            "ssr": {
+              "entry": "src/server.ts"
+            },
+            "polyfills": [
+              "@angular/localize/init"
+            ]
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "1MB",
-                  "maximumError": "2MB"
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "30kB",
-                  "maximumError": "50kB"
+                  "maximumWarning": "6kB",
+                  "maximumError": "8kB"
                 }
               ],
               "outputHashing": "all"
