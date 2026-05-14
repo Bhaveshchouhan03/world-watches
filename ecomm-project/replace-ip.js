@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const directoryPath = path.join(__dirname, 'src', 'app', 'services');
-const newIp = '10.221.130.161';
+const newIp = '10.104.164.161';
 
 function replaceInFile(filePath) {
     let content = fs.readFileSync(filePath, 'utf8');

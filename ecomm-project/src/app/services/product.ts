@@ -3,6 +3,7 @@ import { cart, order, product } from '../data-type';
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter } from '@angular/core'; 
 import { BehaviorSubject, of } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 
 @Injectable({
@@ -11,6 +12,7 @@ import { BehaviorSubject, of } from 'rxjs';
 export class ProductService {
   // cartData = new EventEmitter<product[] |[]>();
   cartData = new BehaviorSubject<product[]>([]);
+  private apiUrl = environment.apiUrl;
   constructor(private http:HttpClient){}
 
   getCurrentUserId(): number | undefined {
@@ -26,34 +28,34 @@ export class ProductService {
 
 
   addProduct(data:product){
-  return this.http.post('http://10.221.130.161:5000/products',data);
+  return this.http.post(`${this.apiUrl}/products`,data);
   }
   productList(){
-    return this.http.get <product[]> ('http://10.221.130.161:5000/products');
+    return this.http.get <product[]> (`${this.apiUrl}/products`);
   }
 
   deleteProduct(id:number){
-    return this.http.delete(`http://10.221.130.161:5000/products/${id}`)
+    return this.http.delete(`${this.apiUrl}/products/${id}`)
   }
 
   getProduct(id:string){
-    return this.http.get<product>(`http://10.221.130.161:5000/products/${id}`);
+    return this.http.get<product>(`${this.apiUrl}/products/${id}`);
   }
 
   updateProduct(product:product){
-    return this.http.put<product>(`http://10.221.130.161:5000/products/${product.id}`,product)
+    return this.http.put<product>(`${this.apiUrl}/products/${product.id}`,product)
   }
 
   popularProducts() {
-   return this.http.get<product[]>('http://10.221.130.161:5000/products');
+   return this.http.get<product[]>(`${this.apiUrl}/products`);
   }
 
   trendyProducts(){
-     return this.http.get<product[]>('http://10.221.130.161:5000/products');
+     return this.http.get<product[]>(`${this.apiUrl}/products`);
   }
   
   searchProduct(query: string) {
-  return this.http.get<product[]>(`http://10.221.130.161:5000/products`);
+  return this.http.get<product[]>(`${this.apiUrl}/products`);
   }
 
   localAddToCart(data: product) {
@@ -83,11 +85,11 @@ export class ProductService {
   }
 
   addToCart(cartData:cart){
-     return this.http.post('http://10.221.130.161:5000/cart',cartData);
+     return this.http.post(`${this.apiUrl}/cart`,cartData);
   }
 
   getCartList(userId:number){
-      return this.http.get<product[]>('http://10.221.130.161:5000/cart?userId='+userId,{
+      return this.http.get<product[]>(`${this.apiUrl}/cart?userId=`+userId,{
         observe:'response'
       }).subscribe((result)=>{
         if(result && result.body){
@@ -99,20 +101,20 @@ export class ProductService {
   
 
   removeToCart(cartId:number){
-    return this.http.delete('http://10.221.130.161:5000/cart/'+cartId);
+    return this.http.delete(`${this.apiUrl}/cart/`+cartId);
   }
 
   currentCart(){
     const userId = this.getCurrentUserId();
-    return this.http.get<cart[]>('http://10.221.130.161:5000/cart?userId='+userId);
+    return this.http.get<cart[]>(`${this.apiUrl}/cart?userId=`+userId);
   }
 
   orderNow(data:order){
-     return this.http.post('http://10.221.130.161:5000/orders',data);
+     return this.http.post(`${this.apiUrl}/orders`,data);
   }
 
   // orderList(){
-  // return this.http.get<order[]>("http://10.221.130.161:5000/orders");
+  // return this.http.get<order[]>("${this.apiUrl}/orders");
   // }
   orderList() {
     const userId = this.getCurrentUserId();
@@ -121,16 +123,16 @@ export class ProductService {
       return of([] as order[]);
     }
 
-    return this.http.get<order[]>(`http://10.221.130.161:5000/orders?userId=${userId}`);
+    return this.http.get<order[]>(`${this.apiUrl}/orders?userId=${userId}`);
   }
 
   deleteCartItems(cartId:number){
-     return this.http.delete('http://10.221.130.161:5000/cart/'+cartId).subscribe((reslut)=>{
+     return this.http.delete(`${this.apiUrl}/cart/`+cartId).subscribe((reslut)=>{
       this.cartData.next([]);
      })
   }
 
   cencelOrder(orderId:number){
-    return this.http.delete('http://10.221.130.161:5000/orders/'+orderId);
+    return this.http.delete(`${this.apiUrl}/orders/`+orderId);
   }
 }
