@@ -26,34 +26,34 @@ export class ProductService {
 
 
   addProduct(data:product){
-  return this.http.post('http://10.104.164.161:5000/products',data);
+  return this.http.post('http://10.221.130.161:5000/products',data);
   }
   productList(){
-    return this.http.get <product[]> ('http://10.104.164.161:5000/products');
+    return this.http.get <product[]> ('http://10.221.130.161:5000/products');
   }
 
   deleteProduct(id:number){
-    return this.http.delete(`http://10.104.164.161:5000/products/${id}`)
+    return this.http.delete(`http://10.221.130.161:5000/products/${id}`)
   }
 
   getProduct(id:string){
-    return this.http.get<product>(`http://10.104.164.161:5000/products/${id}`);
+    return this.http.get<product>(`http://10.221.130.161:5000/products/${id}`);
   }
 
   updateProduct(product:product){
-    return this.http.put<product>(`http://10.104.164.161:5000/products/${product.id}`,product)
+    return this.http.put<product>(`http://10.221.130.161:5000/products/${product.id}`,product)
   }
 
   popularProducts() {
-   return this.http.get<product[]>('http://10.104.164.161:5000/products');
+   return this.http.get<product[]>('http://10.221.130.161:5000/products');
   }
 
   trendyProducts(){
-     return this.http.get<product[]>('http://10.104.164.161:5000/products');
+     return this.http.get<product[]>('http://10.221.130.161:5000/products');
   }
   
   searchProduct(query: string) {
-  return this.http.get<product[]>(`http://10.104.164.161:5000/products`);
+  return this.http.get<product[]>(`http://10.221.130.161:5000/products`);
   }
 
   localAddToCart(data: product) {
@@ -83,11 +83,11 @@ export class ProductService {
   }
 
   addToCart(cartData:cart){
-     return this.http.post('http://10.104.164.161:5000/cart',cartData);
+     return this.http.post('http://10.221.130.161:5000/cart',cartData);
   }
 
   getCartList(userId:number){
-      return this.http.get<product[]>('http://10.104.164.161:5000/cart?userId='+userId,{
+      return this.http.get<product[]>('http://10.221.130.161:5000/cart?userId='+userId,{
         observe:'response'
       }).subscribe((result)=>{
         if(result && result.body){
@@ -99,20 +99,20 @@ export class ProductService {
   
 
   removeToCart(cartId:number){
-    return this.http.delete('http://10.104.164.161:5000/cart/'+cartId);
+    return this.http.delete('http://10.221.130.161:5000/cart/'+cartId);
   }
 
   currentCart(){
     const userId = this.getCurrentUserId();
-    return this.http.get<cart[]>('http://10.104.164.161:5000/cart?userId='+userId);
+    return this.http.get<cart[]>('http://10.221.130.161:5000/cart?userId='+userId);
   }
 
   orderNow(data:order){
-     return this.http.post('http://10.104.164.161:5000/orders',data);
+     return this.http.post('http://10.221.130.161:5000/orders',data);
   }
 
   // orderList(){
-  // return this.http.get<order[]>("http://10.104.164.161:5000/orders");
+  // return this.http.get<order[]>("http://10.221.130.161:5000/orders");
   // }
   orderList() {
     const userId = this.getCurrentUserId();
@@ -121,16 +121,16 @@ export class ProductService {
       return of([] as order[]);
     }
 
-    return this.http.get<order[]>(`http://10.104.164.161:5000/orders?userId=${userId}`);
+    return this.http.get<order[]>(`http://10.221.130.161:5000/orders?userId=${userId}`);
   }
 
   deleteCartItems(cartId:number){
-     return this.http.delete('http://10.104.164.161:5000/cart/'+cartId).subscribe((reslut)=>{
+     return this.http.delete('http://10.221.130.161:5000/cart/'+cartId).subscribe((reslut)=>{
       this.cartData.next([]);
      })
   }
 
   cencelOrder(orderId:number){
-    return this.http.delete('http://10.104.164.161:5000/orders/'+orderId);
+    return this.http.delete('http://10.221.130.161:5000/orders/'+orderId);
   }
 }

@@ -12,7 +12,7 @@ export class User {
   invalidUserAuth = new EventEmitter<boolean>(false);
   constructor(private http: HttpClient, private router: Router ){}
   userSignUp(user:signUp){
-   this.http.post('http://10.104.164.161:5000/users',user,{observe:'response'})
+   this.http.post('http://10.221.130.161:5000/users',user,{observe:'response'})
    .subscribe((result)=>{
     if(result){
       const createdUser = {
@@ -26,7 +26,7 @@ export class User {
   }
 
   // userLogin(data:login){
-  //   this.http.get<signUp[]>(`http://10.104.164.161:5000/users?email=${data.email}&password=${data.password}`,
+  //   this.http.get<signUp[]>(`http://10.221.130.161:5000/users?email=${data.email}&password=${data.password}`,
   //   {observe:'response'}
   //   ).subscribe((result)=>{
   //     if(result && result.body?.length){
@@ -43,7 +43,7 @@ export class User {
 
 userLogin(data:login){
   this.http.get<signUp[]>(
-    `http://10.104.164.161:5000/users`,
+    `http://10.221.130.161:5000/users`,
     {observe:'response'}
   ).subscribe((result)=>{
 
