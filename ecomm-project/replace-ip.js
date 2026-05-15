@@ -1,26 +1,34 @@
 const fs = require('fs');
 const path = require('path');
+const { execSync } = require('child_process');
 
-const directoryPath = path.join(__dirname, 'src', 'app', 'services');
-const newIp = '10.104.164.161';
-
-function replaceInFile(filePath) {
-    let content = fs.readFileSync(filePath, 'utf8');
-    content = content.replace(/localhost/g, newIp);
-    fs.writeFileSync(filePath, content, 'utf8');
-}
-
-['product.ts', 'seller.ts', 'user.ts', 'ai.ts'].forEach(file => {
-    const fullPath = path.join(directoryPath, file);
-    if (fs.existsSync(fullPath)) {
-        replaceInFile(fullPath);
+// Auto-detect current IP address
+function getLocalIp() {
+    const os = require('os');
+    const interfaces = os.networkInterfaces();
+    for (const name of Object.keys(interfaces)) {
+        for (const iface of interfaces[name]) {
+            if (iface.family === 'IPv4' && !iface.internal) {
+                return iface.address;
+            }
+        }
     }
-});
-
-// Also replace in server.ts if needed for logging, though not strictly required
-const serverPath = path.join(__dirname, 'src', 'server.ts');
-if (fs.existsSync(serverPath)) {
-    replaceInFile(serverPath);
+    return 'localhost';
 }
 
-console.log('Successfully replaced localhost with ' + newIp);
+const currentIp = getLocalIp();
+const apiUrl = `http://${currentIp}:5000`;
+
+// Update environment.ts for development (LAN access)
+const envPath = path.join(__dirname, 'src', 'environments', 'environment.ts');
+const envContent = `// Development environment - auto-generated for LAN access
+export const environment = {
+  production: false,
+  apiUrl: '${apiUrl}'
+};
+`;
+
+fs.writeFileSync(envPath, envContent, 'utf8');
+console.log(`✅ Updated environment.ts with API URL: ${apiUrl}`);
+console.log(`📱 Other devices can access your app at: http://${currentIp}:4200`);
+console.log(`🖥️  Backend running at: ${apiUrl}`);

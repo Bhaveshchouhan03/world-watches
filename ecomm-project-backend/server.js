@@ -109,6 +109,128 @@ app.get("/sellers", (req, res) => {
   });
 });
 
+// Seller signup
+app.post("/seller", (req, res) => {
+  const { name, email, password } = req.body;
+
+  // Generate random hex id (sellers table uses varchar(10) for id)
+  const id = require("crypto").randomBytes(2).toString("hex");
+
+  const sql =
+    "INSERT INTO sellers (id, name, email, password) VALUES (?, ?, ?, ?)";
+
+  db.query(sql, [id, name, email, password], (err, result) => {
+    if (err) {
+      console.error("Seller Insert Error:", err);
+      return res.status(500).send(err);
+    }
+
+    res.status(201).send({
+      id,
+      name,
+      email,
+      password,
+    });
+  });
+});
+
+// Seller login (GET with email & password filter)
+app.get("/seller", (req, res) => {
+  const { email, password } = req.query;
+
+  if (!email || !password) {
+    return res.status(400).json({ error: "Email and password required" });
+  }
+
+  db.query(
+    "SELECT * FROM sellers WHERE email = ? AND password = ?",
+    [email, password],
+    (err, result) => {
+      if (err) {
+        return res.status(500).send(err);
+      }
+
+      res.send(result);
+    }
+  );
+});
+
+// ================== PRODUCT CRUD (for sellers) ==================
+
+app.post("/products", (req, res) => {
+  const { name, price, category, color, image, description } = req.body;
+
+  const sql =
+    "INSERT INTO products (name, price, category, color, image, description) VALUES (?, ?, ?, ?, ?, ?)";
+
+  db.query(
+    sql,
+    [name, price, category, color, image, description],
+    (err, result) => {
+      if (err) {
+        console.error("Product insert error:", err);
+        return res.status(500).send(err);
+      }
+
+      res.status(201).send({
+        id: result.insertId,
+        name,
+        price,
+        category,
+        color,
+        image,
+        description,
+      });
+    }
+  );
+});
+
+app.put("/products/:id", (req, res) => {
+  const productId = req.params.id;
+  const { name, price, category, color, image, description } = req.body;
+
+  const sql =
+    "UPDATE products SET name=?, price=?, category=?, color=?, image=?, description=? WHERE id=?";
+
+  db.query(
+    sql,
+    [name, price, category, color, image, description, productId],
+    (err, result) => {
+      if (err) {
+        console.error("Product update error:", err);
+        return res.status(500).send(err);
+      }
+
+      if (!result.affectedRows) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+
+      res.send({ id: productId, name, price, category, color, image, description });
+    }
+  );
+});
+
+app.delete("/products/:id", (req, res) => {
+  const productId = req.params.id;
+
+  db.query(
+    "DELETE FROM products WHERE id = ?",
+    [productId],
+    (err, result) => {
+      if (err) {
+        console.error("Product delete error:", err);
+        return res.status(500).send(err);
+      }
+
+      if (!result.affectedRows) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+
+      res.json({ message: "Product deleted successfully" });
+    }
+  );
+});
+
 // ================== CART ==================
 
 app.post("/cart", (req, res) => {
@@ -691,6 +813,6 @@ ${productInfo}
 
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server running on http://0.0.0.0:${PORT}`);
 });
