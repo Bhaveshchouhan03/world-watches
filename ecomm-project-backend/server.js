@@ -6,7 +6,7 @@ const cors = require("cors");
 const OpenAI = require("openai");
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
@@ -20,10 +20,14 @@ const client = new OpenAI({
 // ================== MYSQL CONNECTION ==================
 
 const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: process.env.DB_PASSWORD || "(@Bc0312",
-  database: "startersql",
+  host: process.env.DB_HOST || "localhost",
+  port: process.env.DB_PORT || 3306,
+  user: process.env.DB_USER || "root",
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME || "startersql",
+  ssl: process.env.DB_HOST && process.env.DB_HOST !== "localhost"
+    ? { rejectUnauthorized: true }
+    : undefined,
 });
 
 db.connect((err) => {
@@ -32,6 +36,11 @@ db.connect((err) => {
   } else {
     console.log("MySQL connected successfully");
   }
+});
+
+// Health check route
+app.get("/", (req, res) => {
+  res.json({ status: "Backend Running", timestamp: new Date().toISOString() });
 });
 
 // ================== PRODUCTS ==================
@@ -814,5 +823,5 @@ ${productInfo}
 });
 
 app.listen(PORT, "0.0.0.0", () => {
-  console.log(`Server running on http://0.0.0.0:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
