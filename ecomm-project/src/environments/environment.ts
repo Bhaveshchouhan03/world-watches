@@ -1,5 +1,5 @@
-// Development environment - auto-generated for LAN access
+// Development environment - also using Render backend so it works everywhere
 export const environment = {
   production: false,
-  apiUrl: 'http://10.50.162.161:5000'
+  apiUrl: 'https://ecommerce-backend.onrender.com'
 };
