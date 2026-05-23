@@ -10,7 +10,7 @@ import { ProductService } from './services/product';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-
+    
     // ProductService,
     // provideRouter(routes, withHashLocation()),
     Seller,
