@@ -10,11 +10,11 @@ import { ProductService } from './services/product';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    
+
     // ProductService,
     // provideRouter(routes, withHashLocation()),
     Seller,
     provideHttpClient(),
-    provideRouter(routes), provideClientHydration(withEventReplay())
+    provideRouter(routes, withHashLocation()), provideClientHydration(withEventReplay())
   ]
 };
