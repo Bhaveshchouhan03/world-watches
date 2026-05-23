@@ -3,6 +3,7 @@ import { login, signUp } from '../data-type';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 
 @Injectable({
@@ -10,9 +11,10 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class User {
   invalidUserAuth = new EventEmitter<boolean>(false);
+  private apiUrl = environment.apiUrl;
   constructor(private http: HttpClient, private router: Router ){}
   userSignUp(user:signUp){
-   this.http.post('http://localhost:5000/users',user,{observe:'response'})
+   this.http.post(`${this.apiUrl}/users`,user,{observe:'response'})
    .subscribe((result)=>{
     if(result){
       const createdUser = {
@@ -25,25 +27,9 @@ export class User {
   })
   }
 
-  // userLogin(data:login){
-  //   this.http.get<signUp[]>(`http://localhost:5000/users?email=${data.email}&password=${data.password}`,
-  //   {observe:'response'}
-  //   ).subscribe((result)=>{
-  //     if(result && result.body?.length){
-  //      console.log("RESULT:", result.body);
-  //       localStorage.setItem('user',JSON.stringify(result.body[0]));
-  //       this.router.navigate(['/']);
-  //       this.invalidUserAuth.emit(false);
-  //     }else{
-  //       this.invalidUserAuth.emit(true);
-  //     }
-  //   })
-  // }
-
-
 userLogin(data:login){
   this.http.get<signUp[]>(
-    `http://localhost:5000/users`,
+    `${this.apiUrl}/users`,
     {observe:'response'}
   ).subscribe((result)=>{
 
