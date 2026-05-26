@@ -1,0 +1,43 @@
+<div class="my-orders">
+  <h1>My Orders</h1>
+
+  <p *ngIf="!orderData.length">No orders found yet.</p>
+
+  <div class="row order-header" *ngIf="orderData.length">
+    <div class="col-sm-2">
+      <span>Orders</span>
+    </div>
+    <div class="col-sm-2">
+      <span>Order Id</span>
+    </div>
+    <div class="col-sm-2">
+      <span>Price</span>
+    </div>
+    <div class="col-sm-2">
+      <span>Status</span>
+    </div>
+    <div class="col-sm-2">
+      <span>Cancel Order</span>
+    </div>
+  </div>
+
+  <div class="row" *ngFor="let order of orderData" >
+    <div class="col-sm-2">
+        <img [src]="order.image_url || 'https://thumbs.dreamstime.com/b/order-red-stamp-text-white-44561786.jpg'" class="order-img">
+    </div>
+
+    <div class="col-sm-2">
+        <span>#{{order.id}}</span>
+    </div>
+    <div class="col-sm-2">
+        <span>{{order.totalPrice | currency:'INR':'symbol':'1.0-0'}}</span>
+    </div>
+    <div class="col-sm-2">
+        <span>{{order.status || 'Pending'}}</span>
+    </div>
+    <div class="col-sm-2">
+        <button (click)="cencelOrder(order.id)" class="form-button">Cancel Order</button>
+    </div>
+  </div>
+
+</div>

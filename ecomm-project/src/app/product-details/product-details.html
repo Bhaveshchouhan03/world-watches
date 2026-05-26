@@ -1,0 +1,66 @@
+<section class="details-page" *ngIf="productData as product">
+  <article class="details-media-card">
+    <div class="details-media-frame">
+      <img class="product-img" [src]="product.image" [alt]="product.name" />
+    </div>
+  </article>
+
+  <article class="details-copy-card">
+    <span class="details-eyebrow">Product Details</span>
+    <h1>{{ product.name }}</h1>
+    <p class="details-summary">{{ productSummary }}</p>
+
+    <div class="details-spec-list">
+      <div class="spec-row">
+        <span>Price</span>
+        <strong>{{ product.price | currency:'INR':'symbol':'1.0-0' }}</strong>
+      </div>
+
+      <div class="spec-row">
+        <span>Category</span>
+        <strong>{{ product.category }}</strong>
+      </div>
+
+      <div class="spec-row">
+        <span>Color</span>
+        <strong class="color-value">
+          <i class="color-dot" [style.background]="resolveColor(product.color)"></i>
+          {{ product.color }}
+        </strong>
+      </div>
+    </div>
+
+    <div class="details-actions">
+      <button type="button" class="primary-button">Buy Now</button>
+      <button
+        *ngIf="!removeCart"
+        type="button"
+        class="secondary-button"
+        (click)="addToCart()"
+      >
+        Add to Cart
+      </button>
+      <button
+        *ngIf="removeCart"
+        type="button"
+        class="secondary-button"
+        (click)="removeToCart(product.id)"
+      >
+        Remove Cart
+      </button>
+    </div>
+
+    <div class="quantity-group">
+      <button type="button" (click)="handleQuantity('min')">-</button>
+      <input type="text" [value]="productQuantity" readonly />
+      <button type="button" (click)="handleQuantity('plus')">+</button>
+    </div>
+
+    <div class="description-card" *ngIf="descriptionPoints.length">
+      <h3>Highlights</h3>
+      <ul>
+        <li *ngFor="let point of descriptionPoints">{{ point }}</li>
+      </ul>
+    </div>
+  </article>
+</section>
